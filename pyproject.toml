@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "svgreplicator"
+version = "0.1.0"
+description = "Tool for modifying and replicating SVGs"
+authors = ["Jan Hein de Jong <JHdJ@allseas.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+mypy = "^0.931"
+pytest = "^7.0.1"
+autoflake = "^1.4"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

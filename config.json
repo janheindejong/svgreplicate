@@ -1,0 +1,11 @@
+[
+    {
+        "filename": "example_out.svg", 
+        "objects": [
+            {
+                "id": "ellipse1", 
+                "style": {"fill": "#f9311e"}
+            }
+        ]
+    }
+]
