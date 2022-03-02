@@ -1,6 +1,6 @@
 [
     {
-        "filename": "example_out.svg", 
+        "filename": "example/example_out.svg", 
         "objects": [
             {
                 "id": "ellipse1", 

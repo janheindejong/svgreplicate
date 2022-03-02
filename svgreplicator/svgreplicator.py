@@ -20,7 +20,6 @@ Config = list[RequestedOutputFile]
 
 # Namespace
 ns = {
-    # "inkscape": "http://www.inkscape.org/namespaces/inkscape",
     "svg": "http://www.w3.org/2000/svg"
 }
 

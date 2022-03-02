@@ -1,4 +1,5 @@
 import argparse
+import json
 from typing import Protocol
 
 from .svgreplicator import Config, SvgHandler
@@ -11,12 +12,6 @@ class Args(Protocol):
 
 
 def get_args() -> Args:
-    # class MyArgs(Args):
-    #     def __init__(self, *args) -> None:
-    #         self.template_filename = args[0]
-    #         self.config_filename = args[1]
-
-    # return MyArgs("example.svg", "config.json")
     parser = argparse.ArgumentParser(description="Modify SVG files")
     parser.add_argument("--filename", type=str, help="SVG file")
     parser.add_argument("--config", type=str, help="Configuration file")
@@ -27,7 +22,7 @@ def main():
     args = get_args()
 
     with open(args.config) as f:
-        config: Config = f.read()
+        config: Config = json.load(f)
 
     for requested_output_file in config:
         svg_handler = SvgHandler()
@@ -40,7 +35,7 @@ def main():
         svg_handler.modify_svg(requested_output_file["objects"])
 
         # Save
-        with open(requested_output_file["filename"], "w") as f:
+        with open(requested_output_file["filename"], "wb") as f:
             svg_handler.write_svg(f)
 
 
