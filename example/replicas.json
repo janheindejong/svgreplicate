@@ -1,6 +1,6 @@
 [
     {
-        "filename": "example/example_out.svg", 
+        "filename": "example/replica1.svg", 
         "modifications": [
             {
                 "id": "ellipse1", 

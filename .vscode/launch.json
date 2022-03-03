@@ -12,8 +12,8 @@
             "args": [
                 "--filename", 
                 "example/template.svg", 
-                "--replications", 
-                "example/replications.json"
+                "--replicas", 
+                "example/replicas.json"
             ], 
             "justMyCode": false
         }

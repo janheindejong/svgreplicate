@@ -2,7 +2,7 @@ import argparse
 import json
 from typing import Protocol
 
-from .svghandler import Replications, SvgHandler
+from .svghandler import Replicas, SvgHandler
 
 
 class Args(Protocol):
@@ -30,7 +30,7 @@ def main():
     args = get_args()
 
     with open(args.replications) as f:
-        config: Replications = json.load(f)
+        config: Replicas = json.load(f)
 
     for replication in config:
         svg_handler = SvgHandler()

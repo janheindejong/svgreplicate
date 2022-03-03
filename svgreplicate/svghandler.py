@@ -6,18 +6,19 @@ from typing import TextIO, TypedDict
 
 # Define types and interfaces
 class ElementModification(TypedDict):
+    
     id: str
     style: dict[str, str]
     text: str
 
 
-class Replication(TypedDict):
+class Replica(TypedDict):
 
     filename: str
     modifications: list[ElementModification]
 
 
-Replications = list[Replication]
+Replicas = list[Replica]
 
 
 # Namespace
