@@ -2,12 +2,13 @@ import xml.etree.ElementTree as ET
 from io import BytesIO
 from typing import TextIO, TypedDict
 from xml.etree.ElementTree import Element
-
+import re
 
 # Define types and interfaces
 class Element(TypedDict):
     id: str
     style: dict[str, str]
+    text: str
 
 
 class RequestedOutputFile(TypedDict):
@@ -20,7 +21,9 @@ Config = list[RequestedOutputFile]
 
 
 # Namespace
-ET.register_namespace("svg", "http://www.w3.org/2000/svg")
+ns = {"svg": "http://www.w3.org/2000/svg"}
+for prefix, uri in ns.items():
+    ET.register_namespace(prefix, uri)
 
 
 class SvgHandler:
@@ -29,7 +32,10 @@ class SvgHandler:
 
     def modify_svg(self, elements: list[Element]):
         for element in elements:
-            self._modify_element_style(element["id"], element["style"])
+            if "style" in element:
+                self._modify_element_style(element["id"], element["style"])
+            if "text" in element: 
+                self._set_element_text(element["id"], element["text"])
 
     def read_svg(self, file: TextIO) -> None:
         """Reads SVG from TextIO"""
@@ -48,7 +54,19 @@ class SvgHandler:
         except AttributeError:
             raise Exception("You need to read and SVG first")
 
-    # All this stuff could be taken to a separate class that handles the elements
+    # All this stuff could be taken to a separate class that wraps ET.Element
+    def _set_element_text(self, id: str, text: str) -> None: 
+        element = self._get_element(id)
+        element.text = text
+        # Remove tspan 
+        if re.match(r"{.*}text", element.tag) and len(element) != 0:
+            self._remove_subelements_recursively("svg:tspan", element)
+
+    @staticmethod
+    def _remove_subelements_recursively(match: str, element: ET.Element): 
+        while (subelement := element.find(match, ns)) is not None: 
+            element.remove(subelement)
+
     def _modify_element_style(self, id: str, style: dict[str, str]) -> None:
         element = self._get_element(id)
         try:
