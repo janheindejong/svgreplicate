@@ -11,7 +11,7 @@
             "module": "svgreplicate", 
             "args": [
                 "--filename", 
-                "example/example.svg", 
+                "example/template.svg", 
                 "--replications", 
                 "example/replications.json"
             ], 
