@@ -1,10 +1,11 @@
 import xml.etree.ElementTree as ET
+from io import BytesIO
 from typing import TextIO, TypedDict
 from xml.etree.ElementTree import Element
 
 
 # Define types and interfaces
-class Object(TypedDict):
+class Element(TypedDict):
     id: str
     style: dict[str, str]
 
@@ -12,33 +13,34 @@ class Object(TypedDict):
 class RequestedOutputFile(TypedDict):
 
     filename: str
-    objects: list[Object]
+    objects: list[Element]
 
 
 Config = list[RequestedOutputFile]
 
 
 # Namespace
-ns = {
-    "svg": "http://www.w3.org/2000/svg"
-}
+ET.register_namespace("svg", "http://www.w3.org/2000/svg")
 
 
 class SvgHandler:
 
     _tree: ET.ElementTree
 
-    def modify_svg(self, objects: list[Object]):
-        for object in objects:
-            self._modify_element_style(object["id"], object["style"])
+    def modify_svg(self, elements: list[Element]):
+        for element in elements:
+            self._modify_element_style(element["id"], element["style"])
 
     def read_svg(self, file: TextIO) -> None:
         """Reads SVG from TextIO"""
         self._tree = ET.parse(file)
 
-    def write_svg(self, file: TextIO) -> None:
-        """Writes SVG to StringIO"""
+    def write_svg(self, file: BytesIO) -> None:
+        """Writes SVG to BytesIO"""
         self._tree.write(file)
+
+    def get_element_string(self, id: str) -> str:
+        return ET.tostring(self._get_element(id))
 
     def _get_root(self) -> ET.Element:
         try:
@@ -56,8 +58,8 @@ class SvgHandler:
         style = {**current_style, **style}
         element.set("style", self._unmarshal_style(style))
 
-    def _get_element(self, id: str) -> Element:
-        if (element := self._get_root().find(f".//*[@id='{id}']", ns)) is not None:
+    def _get_element(self, id: str) -> ET.Element:
+        if (element := self._get_root().find(f".//*[@id='{id}']")) is not None:
             return element
         else:
             raise Exception(f'Element "{id}" not found')

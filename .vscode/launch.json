@@ -11,10 +11,11 @@
             "module": "svgreplicator", 
             "args": [
                 "--filename", 
-                "example.svg", 
+                "example/example.svg", 
                 "--config", 
-                "config.json"
-            ]
+                "example/config.json"
+            ], 
+            "justMyCode": false
         }
     ]
 }
