@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "svgreplicator"
+name = "svgreplicate"
 version = "0.1.0"
 description = "Tool for modifying and replicating SVGs"
 authors = ["Jan Hein de Jong <JHdJ@allseas.com>"]

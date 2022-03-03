@@ -2,7 +2,7 @@ import argparse
 import json
 from typing import Protocol
 
-from .svgreplicator import Replications, SvgHandler
+from .svghandler import Replications, SvgHandler
 
 
 class Args(Protocol):
@@ -12,9 +12,17 @@ class Args(Protocol):
 
 
 def get_args() -> Args:
-    parser = argparse.ArgumentParser(description="Replicates and modifies SVG files in batch")
-    parser.add_argument("--filename", type=str, help="SVG file that will be used as the basis")
-    parser.add_argument("--replications", type=str, help="JSON file with specification of replications that will be created")
+    parser = argparse.ArgumentParser(
+        description="Replicates and modifies SVG files in batch"
+    )
+    parser.add_argument(
+        "--filename", type=str, help="SVG file that will be used as the basis"
+    )
+    parser.add_argument(
+        "--replications",
+        type=str,
+        help="JSON file with specification of replications that will be created",
+    )
     return parser.parse_args()
 
 

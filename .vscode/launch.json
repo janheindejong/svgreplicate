@@ -8,12 +8,12 @@
             "name": "Run example",
             "type": "python",
             "request": "launch",
-            "module": "svgreplicator", 
+            "module": "svgreplicate", 
             "args": [
                 "--filename", 
                 "example/example.svg", 
-                "--config", 
-                "example/config.json"
+                "--replications", 
+                "example/replications.json"
             ], 
             "justMyCode": false
         }
