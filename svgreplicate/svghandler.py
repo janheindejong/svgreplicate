@@ -30,6 +30,10 @@ class SvgHandler:
 
     _tree: ET.ElementTree
 
+    def read_svg(self, file: TextIO) -> None:
+        """Reads SVG from TextIO"""
+        self._tree = ET.parse(file)
+
     def modify_svg(self, modifications: list[ElementModification]):
         """Modify elements in SVG by passing list of dicts with shape ElementModification"""
         for modification in modifications:
@@ -38,18 +42,14 @@ class SvgHandler:
             if "text" in modification:
                 self._set_element_text(modification["id"], modification["text"])
 
-    def read_svg(self, file: TextIO) -> None:
-        """Reads SVG from TextIO"""
-        self._tree = ET.parse(file)
-
-    def write_svg(self, file: BytesIO) -> None:
-        """Writes SVG to BytesIO"""
-        self._tree.write(file)
-
     def get_element_string(self, id: str) -> bytes:
         """Converts element with given id to XML string"""
         # TODO do we want this to be decoded? 
         return ET.tostring(self._get_element(id))
+
+    def write_svg(self, file: BytesIO) -> None:
+        """Writes SVG to BytesIO"""
+        self._tree.write(file)
 
     def _get_root(self) -> ET.Element:
         try:
