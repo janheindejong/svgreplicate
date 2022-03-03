@@ -46,8 +46,9 @@ class SvgHandler:
         """Writes SVG to BytesIO"""
         self._tree.write(file)
 
-    def get_element_string(self, id: str) -> str:
+    def get_element_string(self, id: str) -> bytes:
         """Converts element with given id to XML string"""
+        # TODO do we want this to be decoded? 
         return ET.tostring(self._get_element(id))
 
     def _get_root(self) -> ET.Element:
