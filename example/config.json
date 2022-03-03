@@ -1,7 +1,7 @@
 [
     {
         "filename": "example/example_out.svg", 
-        "objects": [
+        "modifications": [
             {
                 "id": "ellipse1", 
                 "style": {"fill": "#f9311e"}
