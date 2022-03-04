@@ -29,7 +29,7 @@ def get_args() -> Args:
 def main():
     args = get_args()
 
-    with open(args.replications) as f:
+    with open(args.replicas) as f:
         replicas: Replicas = json.load(f)
 
     for replica in replicas:
