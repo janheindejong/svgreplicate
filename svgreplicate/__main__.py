@@ -19,9 +19,9 @@ def get_args() -> Args:
         "--filename", type=str, help="SVG file that will be used as the basis"
     )
     parser.add_argument(
-        "--replications",
+        "--replicas",
         type=str,
-        help="JSON file with specification of replications that will be created",
+        help="JSON file with specification of replicas that will be created",
     )
     return parser.parse_args()
 
@@ -30,21 +30,21 @@ def main():
     args = get_args()
 
     with open(args.replications) as f:
-        config: Replicas = json.load(f)
+        replicas: Replicas = json.load(f)
 
-    for replication in config:
+    for replica in replicas:
         svg_handler = SvgHandler()
 
         # Load template
         with open(args.filename) as f:
-            svg_handler.read_svg(f)
+            svg_handler.read(f)
 
         # Modify stuff
-        svg_handler.modify_svg(replication["modifications"])
+        svg_handler.modify(replica["modifications"])
 
         # Save
-        with open(replication["filename"], "wb") as f:
-            svg_handler.write_svg(f)
+        with open(replica["filename"], "wb") as f:
+            svg_handler.write(f)
 
 
 if __name__ == "__main__":

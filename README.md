@@ -60,4 +60,3 @@ python -m svgreplicate --filename path-to-svg-template.svg --replicas path-to-re
 ```
 
 And chicken's done!
-

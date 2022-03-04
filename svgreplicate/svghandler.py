@@ -6,7 +6,7 @@ from typing import TextIO, TypedDict
 
 # Define types and interfaces
 class ElementModification(TypedDict):
-    
+
     id: str
     style: dict[str, str]
     text: str
@@ -31,11 +31,11 @@ class SvgHandler:
 
     _tree: ET.ElementTree
 
-    def read_svg(self, file: TextIO) -> None:
+    def read(self, file: TextIO) -> None:
         """Reads SVG from TextIO"""
         self._tree = ET.parse(file)
 
-    def modify_svg(self, modifications: list[ElementModification]):
+    def modify(self, modifications: list[ElementModification]):
         """Modify elements in SVG by passing list of dicts with shape ElementModification"""
         for modification in modifications:
             if "style" in modification:
@@ -45,10 +45,10 @@ class SvgHandler:
 
     def get_element_string(self, id: str) -> bytes:
         """Converts element with given id to XML string"""
-        # TODO do we want this to be decoded? 
+        # TODO do we want this to be decoded?
         return ET.tostring(self._get_element(id))
 
-    def write_svg(self, file: BytesIO) -> None:
+    def write(self, file: BytesIO) -> None:
         """Writes SVG to BytesIO"""
         self._tree.write(file)
 

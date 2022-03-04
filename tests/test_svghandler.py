@@ -49,14 +49,14 @@ def modifications():
 @pytest.fixture(scope="class")
 def svg_handler(svg_file: io.StringIO) -> SvgHandler:
     svg_handler = SvgHandler()
-    svg_handler.read_svg(svg_file)
+    svg_handler.read(svg_file)
     return svg_handler
 
 
 class TestModifySuccessfully:
     @pytest.fixture(autouse=True, scope="class")
     def modify(self, svg_handler: SvgHandler, modifications: list[ElementModification]):
-        svg_handler.modify_svg(modifications)
+        svg_handler.modify(modifications)
 
     def test_elipse_modified_correctly(self, svg_handler: SvgHandler):
         element = ET.fromstring(svg_handler.get_element_string("ellipse1"))
@@ -73,7 +73,7 @@ class TestModifySuccessfully:
 
     def test_file_written_correctly(self, svg_handler: SvgHandler):
         f = io.BytesIO()
-        svg_handler.write_svg(f)
+        svg_handler.write(f)
         value = b" ".join(f.getvalue().split())
         expected = b"""<svg:svg xmlns:svg="http://www.w3.org/2000/svg" width="210mm" height="297mm" id="svg" version="1.1"> <svg:g id="group1"> <svg:ellipse style="opacity:1;fill:#000000;display:none" id="ellipse1" cx="0.0" cy="0.0" rx="10.0" ry="10.0" /> <svg:g id="group2" style="display:none" /> <svg:text id="text1">Hello, world!</svg:text> </svg:g> </svg:svg>"""
         assert value == expected
