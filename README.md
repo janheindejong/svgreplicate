@@ -2,6 +2,12 @@
 
 Tool for batch modifying and replicating SVG files. 
 
+## Installation 
+
+Install from PyPI by running `pip install svgreplicate`.
+
+## Usage
+
 Create an SVG file, either by hand or with your favorite vector graphics tool, like [InkScape](https://inkscape.org):
 
 ```xml
@@ -53,10 +59,15 @@ Next, create a json with the replicas you want:
 ]
 ```
 
-Run:
+And finally, run the script:
 
 ```bash 
-python -m svgreplicate --filename path-to-svg-template.svg --replicas path-to-replicas-config.json 
+svgreplicate --filename path-to-svg-template.svg --replicas path-to-replicas-config.json 
 ```
 
-And chicken's done!
+You now have 2 files in the example folder, based on the template, with the specified modifications. 
+
+## Backlog 
+
+In future, I'd like to add at least the functionality for automatically rendering to PNG. 
+
